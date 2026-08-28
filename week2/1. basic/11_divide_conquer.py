@@ -36,6 +36,8 @@ def find_max_divide_conquer(arr, left, right):
         최댓값
     """
     # TODO: base case - 원소가 하나면 그 값 반환
+    if (len(arr) == 1):
+        return arr[0]
     pass
     
     # TODO: 중간 지점 계산

@@ -23,6 +23,7 @@
 - 유클리드 호제법: gcd(a, b) = gcd(b, a % b)
 - LCM 공식: lcm(a, b) = (a × b) / gcd(a, b)
 """
+import math
 
 def gcd(a, b):
     """
@@ -36,6 +37,9 @@ def gcd(a, b):
     """
     # TODO: 유클리드 호제법 구현
     # base case: b가 0이면 a 반환
+    if (b == 0):
+        return a
+    return gcd(b, a%b)
     # recursive를 이용 
     pass
 
@@ -51,6 +55,16 @@ def gcd_iterative(a, b):
     """
     # TODO: 반복문으로 구현
     # b가 0이 될 때까지 반복
+    n=0
+    if (a > b):
+        n = a
+    else:
+        n = b
+    l = 0
+    for i in range(2, n):
+        if (a%i == 0 and b%i == 0):
+            l = i
+    return l
     pass
 
 def lcm(a, b):
@@ -63,6 +77,7 @@ def lcm(a, b):
     Returns:
         최소공배수
     """
+    return (a * b) / gcd(a, b)
     # TODO: LCM 계산
     pass
 
@@ -79,8 +94,13 @@ def extended_gcd(a, b):
     """
     # TODO: 확장 유클리드 호제법 구현
     # base case: b가 0이면 (a, 1, 0) 반환    
+    if (b == 0):
+        return (a,1,0)
     # recursive case
     # 역추적하며 x, y 계산
+    r = a%b
+    
+    return extended_gcd(b, r)
     pass
 
 def is_prime(n):
@@ -97,6 +117,11 @@ def is_prime(n):
     # n이 2보다 작으면 False
     # 2부터 sqrt(n)까지 나누어 떨어지는지 확인    
     # 3부터 sqrt(n)까지 홀수만 확인
+    if (n < 2): return False
+    for i in range(2, n):
+        if (n%i == 0):
+            return False
+    return True
     pass 
 
 # 테스트 케이스
