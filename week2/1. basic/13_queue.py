@@ -48,6 +48,9 @@ def process_print_queue(jobs):
         processed.append(queue.pop())
     pass
 
+    for i in range(len(processed)-1, -1, -1):
+        print("처리: " + processed[i])
+
     processed.reverse()
     return processed
 

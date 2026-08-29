@@ -94,13 +94,17 @@ def extended_gcd(a, b):
     """
     # TODO: 확장 유클리드 호제법 구현
     # base case: b가 0이면 (a, 1, 0) 반환    
-    if (b == 0):
-        return (a,1,0)
     # recursive case
     # 역추적하며 x, y 계산
-    r = a%b
+    if (b == 0):
+        return (1,1,0)
     
-    return extended_gcd(b, r)
+    gcd, x, y = extended_gcd(b, a%b)
+
+    x = y
+    y = x + (a//b) * y
+
+    return (gcd, x, y)
     pass
 
 def is_prime(n):

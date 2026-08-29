@@ -55,7 +55,6 @@ def is_palindrome(s):
                 continue
             else:
                 break
-        print(k)
         if (s[j] != s[k]):
             return False
         if (j >= len(s)-1 or k <= 0):

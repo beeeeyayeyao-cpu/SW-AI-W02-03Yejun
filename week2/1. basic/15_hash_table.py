@@ -45,12 +45,10 @@ def manage_grades(students):
 
     average = sum(scores.values()) / len(scores)
     pass
-    print(average)
     
     
     # TODO: 최고 점수 학생 찾기
     top_student = max(scores, key=scores.get)
-    print(top_student)
     top_score = students[top_student]
     pass
     
@@ -101,5 +99,3 @@ if __name__ == "__main__":
     search_name2 = "Eve"
     score2 = find_student_score(students1, search_name2)
     print(f"{search_name2}의 점수: {score2}")
-
-
