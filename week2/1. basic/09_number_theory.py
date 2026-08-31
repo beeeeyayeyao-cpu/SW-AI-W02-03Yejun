@@ -101,10 +101,10 @@ def extended_gcd(a, b):
     
     gcd, x, y = extended_gcd(b, a%b)
 
-    x = y
-    y = x + (a//b) * y
+    x1 = y
+    y1 = x + (a//b) * y
 
-    return (gcd, x, y)
+    return (gcd, x1, y1)
     pass
 
 def is_prime(n):

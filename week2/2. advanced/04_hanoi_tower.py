@@ -56,24 +56,34 @@
         move(k-1, via, src, dst)        # via 의 k-1개를 dst 로
 """
 
-
+"""하노이탑 총 원판 이동갯수를 구하는 함수"""
 def hanoi_count(n: int) -> int:
-    """N 개의 원반을 옮기는 데 필요한 최소 이동 횟수( = 2^N - 1) 를 반환"""
-    # TODO: 2^N - 1 을 정수로 반환하세요.
-    pass
+    return 2**n - 1
 
-
+"""원판 갯수를 받고 하노이탑 알고리즘 함수를 실행하는 함수"""
 def hanoi_moves(n: int) -> list:
-    """
-    N <= 20 일 때 1번 -> 3번 기둥으로 옮기는 이동 순서를 리스트로 반환.
-    각 원소는 (출발기둥, 도착기둥) 튜플이며, 기둥 번호는 1/2/3 의 정수.
-    N > 20 또는 N == 0 인 경우에는 빈 리스트 [] 를 반환합니다.
 
-    예) hanoi_moves(2) == [(1, 2), (1, 3), (2, 3)]
-    """
-    # TODO: N > 20 또는 N == 0 인 경우 [] 를 반환하세요.
-    # TODO: 그 외에는 재귀로 이동 순서를 만들어 반환하세요.
-    pass
+    if (n > 20 or n == 0):
+        return []
+    else:
+        arr = []
+        hanoi(n,1,3,2,arr)
+        return arr
+
+"""하노이탑 알고리즘 함수"""
+def hanoi(n, start, end, mid, arr):
+    if (n == 1): #현제 원판의 갯수가 1개라면 모든 원판을 옴겼으므로
+        arr.append((start, end))
+        return 
+    #보조기둥과 목적지의 위치를 바꿔서 보조기둥에 가장 큰 원판을 제외한 원판들이 모이게 함.
+    hanoi(n-1, start, mid, end, arr) 
+    #가장 큰 원판을 목적지로 이동
+    arr.append((start, end))
+    #보조기둥과 시작기둥 위치를 바꿔서 보조기둥에 있던 원판들이 목표기둥으로 움직이도록 함.
+    hanoi(n-1, mid, end, start, arr)
+    
+
+    
 
 
 if __name__ == "__main__":
@@ -101,4 +111,4 @@ if __name__ == "__main__":
 
     print("[테스트 5] N=100 (큰 수 확인, 이동 순서는 미생성)")
     print(f"  최소 이동 횟수: {hanoi_count(100)}")
-    print(f"  이동 순서 개수: {len(hanoi_moves(100))}")
+    print(f"  이동 순서 개수: {len(hanoi_moves(100))}")                                                        

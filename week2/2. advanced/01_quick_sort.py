@@ -22,76 +22,38 @@
 - 재귀적으로 왼쪽과 오른쪽 부분 정렬
 """
 
-def partition(arr, low, high):
-    """
-    배열을 피벗 기준으로 분할하는 함수
-    
-    Args:
-        arr: 배열
-        low: 시작 인덱스
-        high: 끝 인덱스
-    
-    Returns:
-        피벗의 최종 위치 인덱스
-    """
-    # TODO: 피벗을 선택 (일반적으로 마지막 원소)
-    pivot = arr[high]
-    pass
-    
-    # TODO: i는 작은 원소들의 마지막 인덱스를 추적
-    i = 0
-    pass
-    
-    # TODO: low부터 high-1까지 순회하면서
-    ## 현재 원소가 피벗보다 작거나 같으면:
-    ##   1. i를 1 증가
-    ##   2. arr[i]와 arr[j]를 교환
-    for j in range(low, high):
-        if (arr[j] <= pivot):
-            i+=1
-            temp = arr[i]
-            arr[i] = arr[j]
-            arr[j] = temp
-    pass
-    
-    # TODO: 피벗을 올바른 위치(i+1)에 배치
-    pass
-    
-    return i + 1
 
+"""Hoare 기법에 따라 피벗을 기준으로 정렬하고, 반으로 쪼갤 기준이 되는 인덱스 반환"""
+def partition(arr, low, high): 
+
+    pivot = arr[(low + high) // 2] #피벗 정의 리스트의 가운데 값
+
+#low(start) 가 high(end) 보다 같거나 작은동안 반복 (start와 end가 서로 교차되지 않은동안 반복)
+    while (low <= high): 
+        while(arr[low] < pivot): #low(start) 번지 값이 피벗보다 작은동안 오른쪽으로 계속 진행
+            low += 1 
+        while(arr[high] > pivot): #high(end) 번지 값이 피벗보다 큰동안 왼쪽으로 계속 진행
+            high -= 1
+        if (low <= high): #while 문을 빠져나온 시점. 피벗 하는 상태이므로 값 교체
+            temp = arr[high]
+            arr[high] = arr[low]
+            arr[low] = temp
+            low += 1
+            high -= 1
+
+    return low
+
+"""재귀 호출로 퀵 정렬을 실행하는 함수"""
 def quick_sort_helper(arr, low, high):
-    """
-    퀵 정렬 재귀 함수
-    
-    Args:
-        arr: 배열
-        low: 시작 인덱스
-        high: 끝 인덱스
-    """
-    # TODO: base case - low가 high보다 작을 때만 정렬
-    ## 분할하여 피벗 인덱스 얻기
-    ## 피벗 왼쪽 부분 재귀 정렬
-    ## 피벗 오른쪽 부분 재귀 정렬
+    pivotIndex = partition(arr, low, high) 
+    if (pivotIndex-1 > low): #왼쪽으로 더 계산할 수 있는지 확인
+        quick_sort_helper(arr, low, pivotIndex-1) #왼쪽 리스트 계산
+    if (pivotIndex < high): #왼쪽 계산을 더 이상 못한다면 오른쪽으로 계산할 수 있는지 확인
+        quick_sort_helper(arr, pivotIndex, high)  #오른쪽 리스트 계산
 
-    if (low >= high):
-        pivot = high / 2
-        return quick_sort_helper(arr, low, pivot)
-        return quick_sort_helper(arr, pivot, high)
-
-
-    pass 
     
 
 def quick_sort(arr):
-    """
-    퀵 정렬 메인 함수
-    
-    Args:
-        arr: 정렬할 배열
-    
-    Returns:
-        정렬된 배열
-    """
     quick_sort_helper(arr, 0, len(arr) - 1)
     return arr
 

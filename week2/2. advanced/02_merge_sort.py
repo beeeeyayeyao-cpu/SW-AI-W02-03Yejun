@@ -22,57 +22,44 @@
 - 정렬된 두 부분을 병합
 """
 
+"""(개념적으로)두개의 배열의 인덱스 값을 서로 비교하면서 작은 순대로 배열에 등록"""
 def merge(arr, left, mid, right):
-    """
-    두 개의 정렬된 부분 배열을 병합하는 함수
-    
-    Args:
-        arr: 원본 배열
-        left: 왼쪽 부분의 시작 인덱스
-        mid: 왼쪽 부분의 끝 인덱스
-        right: 오른쪽 부분의 끝 인덱스
-    """
-    # TODO: 왼쪽과 오른쪽 부분 배열을 임시 배열로 복사
-    pass
-    
-    # TODO: 두 배열을 병합
-    pass
-    
-    
-    # TODO: left_arr와 right_arr를 비교하며 작은 값을 arr에 복사
-    pass
-    
-    # TODO: 남은 원소들을 복사
-    # left_arr에 남은 원소가 있으면 복사
-    # right_arr에 남은 원소가 있으면 복사
-    pass
+    temp = arr.copy() #새로운 배열 생성, 값이 같이 변하면 안되므로
 
+    party1 = left #왼쪽 배열의 현제 인덱스
+    party2 = mid+1 #오른쪽 배열의 현제 인덱스
+    index = left #값이 등록될 배열의 현제 인덱스
+
+    #첫번째나 두번째 배열의 인덱스를 모두 서치 못한 동안 반복 
+    while (party1 <= mid and party2 <= right):
+        #두 배열의 현제 인덱스의 값을 비교해서 첫번째 배열의 값이 더 작다면
+        if (temp[party1] <= temp[party2]):
+            arr[index] = temp[party1] #첫번째 배열의 현제 인덱스 값을 등록 
+            party1+=1
+        else:
+            arr[index] = temp[party2] #두번째 배열의 현제 인덱스 값을 등록
+            party2+=1
+        index += 1
+
+    #위에서 등록을 못한 값들을 모두 등록
+    for i in range(0, mid - party1 + 1): 
+        arr[index] = temp[party1 + i]
+        index+=1
+    for i in range(0, right - party2 + 1):
+        arr[index] = temp[party2 + i]
+        index+=1
+
+"""재귀호출로 머지 정렬을 실행하는 함수"""
 def merge_sort_helper(arr, left, right):
-    """
-    머지 정렬 재귀 함수
-    
-    Args:
-        arr: 배열
-        left: 시작 인덱스
-        right: 끝 인덱스
-    """
-    # TODO: base case - left가 right보다 작을 때만 정렬
-    ## 중간 지점 계산
-    ## 왼쪽 절반 재귀 정렬
-    ## 오른쪽 절반 재귀 정렬
-    ## 정렬된 두 절반을 병합
-    pass
+
+    if (left < right): #시작 인덱스가 끝 인덱스보다 작으면(현제 배열의 크기가 1보다 크다면)
+        mid = (left + right) // 2 #중간 인덱스 구하기
+        merge_sort_helper(arr, left, mid) #왼쪽 배열 생성하는 재귀함수 호출
+        merge_sort_helper(arr, mid + 1, right) #오른쪽 배열 생성하는 재귀함수 호출
+        merge(arr, left, mid, right) 
+
 
 def merge_sort(arr):
-    """
-    머지 정렬 메인 함수
-    
-    Args:
-        arr: 정렬할 배열
-    
-    Returns:
-        정렬된 배열
-    """
     if len(arr) > 1:
         merge_sort_helper(arr, 0, len(arr) - 1)
     return arr
@@ -109,5 +96,3 @@ if __name__ == "__main__":
     print(f"정렬 전: {arr4}")
     result4 = merge_sort(arr4.copy())
     print(f"정렬 후: {result4}")
-
-
