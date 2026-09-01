@@ -55,21 +55,38 @@ N = 8 -> 92      (전통적인 "8-Queens 문제" 의 답)
 """
 
 
-def n_queens(n: int) -> int:
-    """
-    N x N 체스판에 N 개의 퀸을 서로 공격하지 않도록 배치하는 경우의 수를 반환.
-    1 <= N <= 8 범위에서 동작하면 충분합니다.
-    """
-    # TODO: 백트래킹으로 가능한 배치의 수를 반환하세요.
-    # 권장 구조:
-    #   cols = [0] * n
-    #   count = 0
-    #   def place(row):
-    #       ...
-    #   place(0)
-    #   return count
-    pass
 
+
+"""백트래킹 n queen 함수"""
+def n_queens(n: int) -> int:
+    col = set() #열
+    posDiag = set() #(r+c) 양의 대각선
+    negDiag = set() #(r-c) 음의 대각선 
+    count = 0 #퀸이 모두 배치될 수 있는 상태 갯수
+    
+    def backtrack(r): #r 을 행으로 행마다 검사
+
+        nonlocal count
+
+        if r == n: #행을 끝까지 검사했으므로 퀸이 모두 배치될 수 있는 상태 + 1
+            count += 1
+            return
+
+        for c in range(0, n): #열만큼 반복
+            if c in col or r+c in posDiag or r-c in negDiag: #열이 겹치거나 대각선이 겹친다면 건너뛰기
+                continue
+            #안겹치면 추가하고 아래 행 실행
+            col.add(c)
+            posDiag.add(r+c)
+            negDiag.add(r-c)
+            backtrack(r+1)
+            #해당 가지의 내역을 초기화 다음 루트에서 실행할때도 반영되게
+            col.remove(c)
+            posDiag.remove(r+c)
+            negDiag.remove(r-c)
+
+    backtrack(0)
+    return count
 
 if __name__ == "__main__":
     print("[테스트] N=1 ~ N=8 에 대한 가능한 배치의 수")
