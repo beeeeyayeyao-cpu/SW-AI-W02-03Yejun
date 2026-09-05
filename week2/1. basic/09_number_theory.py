@@ -41,7 +41,6 @@ def gcd(a, b):
         return a
     return gcd(b, a%b)
     # recursive를 이용 
-    pass
 
 def gcd_iterative(a, b):
     """
@@ -65,7 +64,6 @@ def gcd_iterative(a, b):
         if (a%i == 0 and b%i == 0):
             l = i
     return l
-    pass
 
 def lcm(a, b):
     """
@@ -102,10 +100,9 @@ def extended_gcd(a, b):
     gcd, x, y = extended_gcd(b, a%b)
 
     x1 = y
-    y1 = x + (a//b) * y
+    y1 = x - (a//b) * y
 
     return (gcd, x1, y1)
-    pass
 
 def is_prime(n):
     """
@@ -126,7 +123,6 @@ def is_prime(n):
         if (n%i == 0):
             return False
     return True
-    pass 
 
 # 테스트 케이스
 if __name__ == "__main__":
