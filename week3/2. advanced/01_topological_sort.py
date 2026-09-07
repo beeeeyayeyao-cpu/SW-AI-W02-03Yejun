@@ -43,7 +43,6 @@ def topological_sort(vertices, edges):
             queue.append(edges[i][0])
     
     result = []
-    print(graph)
     
     while (len(queue) > 0):
         ver = queue.pop()
